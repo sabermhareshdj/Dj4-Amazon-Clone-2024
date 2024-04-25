@@ -4,13 +4,17 @@ Product :
 - flag
 - review : 
     - image
+    - images
     - user
     - date
     - rate
     - review 
 - price
 - sku 
-- brand 
+- brand :
+    - name
+    - image
+    - products count 
 - reviews count
 - subtitle
 - tags
