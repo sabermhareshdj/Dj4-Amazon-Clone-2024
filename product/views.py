@@ -3,7 +3,7 @@ from django.views.generic import ListView , DeleteView
 from .models import Product , ProductImages , Brand , Review
 
 class ProductList(ListView):
-  model = Product
+  model = Product             # context : object_list , model_list 
 
 class ProductDetail(DeleteView):
-  model = Product
+  model = Product             # context : object , model
