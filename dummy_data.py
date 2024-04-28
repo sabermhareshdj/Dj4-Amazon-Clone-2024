@@ -35,6 +35,7 @@ def seed_product(n):
       description = fake.text(max_nb_chars=20000) ,
       quantity = random.randint(0,30) ,
       brand = Brand.objects.get(id=random.randint(1,100)),
+      tags="dummy",
     )
     print(f'Seed {n} products Successfully')
 
