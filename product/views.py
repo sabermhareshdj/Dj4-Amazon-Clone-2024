@@ -78,7 +78,8 @@ def queryset_dubug(request):
 
 
 class ProductList(ListView):
-  model = Product             # context : object_list , model_list 
+  model = Product
+  paginate_by = 30            # context : object_list , model_list 
 
 class ProductDetail(DetailView):
   model = Product             # context : object , model
