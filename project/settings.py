@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'taggit',
     'debug_toolbar',
     'product',
+    'settings',
 ]
 
 INTERNAL_IPS = [
