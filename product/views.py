@@ -3,9 +3,77 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic import ListView , DetailView
 from .models import Product , ProductImages , Brand , Review
-
+from django.db.models import Q , F , Value
+from django.db.models.aggregates import Max,Min,Count,Avg,Sum
 def queryset_dubug(request):
-  data = Product.objects.all()
+  #data = Product.objects.select_related('brand').all() # select_related with ForeignKey and one_to_one
+                                                       # prefetch_related  with many_to_many
+  # filter 
+  #data = Product.objects.filter(price__gt = 70) اكبر من
+  #data = Product.objects.filter(price__gte = 70) اكبر من او يساوي
+  #data = Product.objects.filter(price__lt = 70) اقل من
+  #data = Product.objects.filter(price__lte = 70) اقل من او يساوي
+  #data = Product.objects.filter(price__range = (65 , 70)) الاسعار بين
+  # navigate relation 
+  #data = Product.objects.filter(brand__name="Apple")
+  #data = Product.objects.filter(brand__price__gt = 70)
+  # filter with text 
+  #data = Product.objects.filter(name__contains = 'rown')
+  #data = Product.objects.filter(name__startswith='Jacob')
+  #data = Product.objects.filter(name__endswith='e')
+  #data = Product.objects.filter(tags__isnull=True)
+  #filter date time 
+  #data = Review.objects.filter(created_at__year=2023)
+  #data = Review.objects.filter(created_at__month=  )
+  #filter 2 values
+  #data = Product.objects.filter(price__gt=80 , quantity__lt =10 )
+
+  # data = Product.objects.filter(
+  #   Q(price__gt=80) |
+  #   Q(quantity__lt =10) )
+
+  # data = Product.objects.filter(
+  # Q(price__gt=80) &
+  # Q(quantity__lt =10) )
+
+  # data = Product.objects.filter(
+  # Q(price__gt=80) &
+  # ~Q(quantity__lt =10) ) # عكس المطلوب اي اقل 
+  # field lookup
+  #data = Product.objects.filter(price = F('quantity') ) # F field ,  مقارنة عمود في عمود 
+  #########################
+  #data = Product.objects.all().order_by('name') # شبيه بالسطر التحته
+  #data = Product.objects.order_by('name') #ASC تصاعدي
+  #data = Product.objects.order_by('-name') #DES تنازلي (-)
+  #data = Product.objects.order_by('name','quantity')
+  #data = Product.objects.order_by('name','-quantity')
+  #data = Product.objects.order_by('name')[0]  #first
+  #data = Product.objects.order_by('name')[-1] # last
+  #data = Product.objects.earliest('name')  #first
+  #data = Product.objects..latest('name') # last
+  #data = Product.objects.all()[:10]
+  #data = Product.objects.all()[10:20]
+
+  # select columns
+  #data = Product.objects.values('name','price')
+  #data = Product.objects.values('name','price','brand__name')
+  #data = Product.objects.values_list('name','price','brand__name')
+
+  #remove duplicate
+  #data = Product.objects.all().distinct()
+  
+  #data = Product.objects.only('name','price')
+  #data = Product.objects.defer('slug')  # ما عدا 
+  #data = Product.objects.defer('slug','description')
+
+  #aggregation  عمليات حسابية (تجميعية)
+  #data = Product.objects.aaggregate(Sum('quantity'))
+  #data = Product.objects.aaggregate(Avg('price'))
+  # annotate اضافة عمود بناء على عملية حسابية 
+  data = Product.objects.annotate(price_with_tax=F('price') * 1.2)
+
+  ###################################
+
   return render(request,'product/debug.html',{'data':data})
 
 
