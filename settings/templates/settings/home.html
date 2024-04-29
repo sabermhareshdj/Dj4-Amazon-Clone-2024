@@ -76,7 +76,7 @@
                     {% for brand in brands %}
                       <li>
                           <a class="suggest-card" href="shop-4column.html">
-                              <img src="{{brand.image.url}}" alt="suggest">
+                              <img src="{{brand.image.url}}" style="width:255px; height:255px;" alt="suggest">
                               <h5>{{brand}} <span>{{brand.product_count}} items</span></h5>
                           </a>
                       </li>
@@ -113,7 +113,7 @@
                                       <i class="fas fa-heart"></i>
                                   </button>
                                   <a class="product-image" href="product-video.html">
-                                      <img src="{{item.image.url}}" alt="product">
+                                      <img src="{{item.image.url}}" style="width:255px; height:255px;" alt="product">
                                   </a>
                                   <div class="product-widget">
                                       <a title="Product Compare" href="compare.html" class="fas fa-random"></a>
@@ -195,7 +195,7 @@
                                     <i class="fas fa-heart"></i>
                                 </button>
                                 <a class="feature-image" href="product-video.html">
-                                    <img src="{{item.image.url}}" alt="product">
+                                    <img src="{{item.image.url}}" style="width:255px; height:255px;" alt="product">
                                 </a>
                                 <div class="feature-widget">
                                     <a title="Product Compare" href="compare.html" class="fas fa-random"></a>
@@ -278,7 +278,7 @@
                                             <i class="fas fa-heart"></i>
                                         </button>
                                         <a class="product-image" href="product-video.html">
-                                            <img src="{{item.image.url}}" alt="product">
+                                            <img src="{{item.image.url}}" style="width:255px; height:255px;" alt="product">
                                         </a>
                                         <div class="product-widget">
                                             <a title="Product Compare" href="compare.html" class="fas fa-random"></a>
@@ -1799,7 +1799,7 @@
                 {% for brand in brands %}
                     <div class="brand-wrap">
                         <div class="brand-media">
-                            <img src="{{brand.image.url}}" alt="brand">
+                            <img src="{{brand.image.url}}" style="width:255px; height:255px;"  alt="brand">
                             <div class="brand-overlay">
                                 <a href="/products/brands/{{brand.slug}}"><i class="fas fa-link"></i></a>
                             </div>
