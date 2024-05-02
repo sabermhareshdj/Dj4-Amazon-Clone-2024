@@ -16,15 +16,16 @@ class Cart(models.Model):
   user = models.ForeignKey(User,related_name='cart_user',on_delete=models.SET_NULL,null=True,blank=True)
   status = models.CharField(max_length=10,choices=CART_STATUS)
 
-  def __str__(self):
-    return str(self.user)
-  
   def cart_total(self):
     total = 0
     for item in self.cart_detail.all():
       total += item.total
-
     return round(total,2)
+
+  def __str__(self):
+    return str(self.user)
+  
+
 
 
 class CartDetail(models.Model):

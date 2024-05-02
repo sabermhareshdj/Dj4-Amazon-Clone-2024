@@ -391,7 +391,7 @@
           <li class="cart-item">
             <div class="cart-media">
               <a href="#"><img src="{{item.product.image.url}}" alt="product"></a>
-              <a class="cart-delete" herf="/orders/{{item.id}}/remove-from-cart"> <i class="far fa-trash-alt"></i></a>
+              <a class="cart-delete" href="/orders/{{item.id}}/remove-from-cart"> <i class="far fa-trash-alt"></i></a>
             </div>
             <div class="cart-info-group">
               <div class="cart-info">
@@ -400,27 +400,18 @@
               </div>
               <div class="cart-action-group">
                 <div class="product-action">
-                  <button class="action-minus" title="Quantity Minus">
-                    <i class="icofont-minus"></i>
-                  </button>
-                  <input
-                    class="action-input"
-                    title="Quantity Number"
-                    type="text"
-                    name="{{item.quantity}}"
-                    value="1"
-                  />
-                  <button class="action-plus" title="Quantity Plus">
-                    <i class="icofont-plus"></i>
-                  </button>
-                </div>{{item.total}}</h6>
+                  <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
+                  <input class="action-input"  title="Quantity Number" type="text" name="quantity" value="{{item.quantity}}" />
+                  <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
+                </div>
+                <h6>{{item.total}}</h6>
               </div>
             </div>
           </li>
         {% endfor %}
       </ul>
       <div class="cart-footer">
-        <a class="cart-checkout-btn" href="checkout.html">
+        <a class="cart-checkout-btn" href="/orders/checkout">
           <span class="checkout-label">Proceed to Checkout</span>
           <span class="checkout-price">${{cart_data.cart_total}}</span>
         </a>
@@ -455,15 +446,15 @@
             <i class="icofont-world"></i>
             <select class="select">
               <option value="english" selected>English</option>
-              <option value="bangali">Bangali</option>
+            
               <option value="arabic">Arabic</option>
             </select>
           </div>
           <div class="nav-select">
             <i class="icofont-money"></i>
             <select class="select">
-              <option value="english" selected>Doller</option>
-              <option value="bangali">Pound</option>
+              
+              
               <option value="arabic">Taka</option>
             </select>
           </div>
