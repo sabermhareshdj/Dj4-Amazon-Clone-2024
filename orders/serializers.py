@@ -31,7 +31,7 @@ class OrderProductSerializer(serializers.ModelSerializer):
 
 class OrderDetailSerializer(serializers.ModelSerializer):
   user = serializers.StringRelatedField()
-  products = OrderProductSerializer(many=True,source='order_detail')
+  products = OrderProductSerializer(many=True , source='order_detail')
   class Meta:
     model = Order
     fields = '__all__'
