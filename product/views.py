@@ -1,14 +1,15 @@
 from typing import Any
 from django.db.models.query import QuerySet
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from django.views.generic import ListView , DetailView
 from .models import Product , ProductImages , Brand , Review
 from django.db.models import Q , F , Value
 from django.db.models.aggregates import Max,Min,Count,Avg,Sum
 from django.views.decorators.cache import cache_page
+from .tasks import send_emails
 
 
-@cache_page(60 * 1)
+# @cache_page(60 * 1)
 def queryset_dubug(request):
   #data = Product.objects.select_related('brand').all() # select_related with ForeignKey and one_to_one
                                                        # prefetch_related  with many_to_many
@@ -74,11 +75,13 @@ def queryset_dubug(request):
   #data = Product.objects.aaggregate(Sum('quantity'))
   #data = Product.objects.aaggregate(Avg('price'))
   # annotate اضافة عمود بناء على عملية حسابية 
-  data = Product.objects.annotate(price_with_tax=F('price') * 1.2)
 
-  data = Product.objects.all()
+  # data = Product.objects.annotate(price_with_tax=F('price') * 1.2)
 
-  ###################################
+  data = Product.objects.get(id=1993)
+
+  send_emails.delay()
+
 
   return render(request,'product/debug.html',{'data':data})
 
@@ -118,3 +121,22 @@ class BrandDetail(ListView):
     context = super().get_context_data(**kwargs)
     context["brand"] = Brand.objects.filter(slug=self.kwargs['slug']).annotate(product_count=Count('product_brand'))[0]
     return context
+  
+
+def add_review(request,slug):
+
+
+  product = Product.objects.get(slug=slug)
+
+
+  rate = request.POST['rate']    
+  review = request.POST['review']
+
+  Review.objects.create(
+    product = product ,
+    rate= rate ,
+    review = review ,
+    user = request.user
+    )
+
+  return redirect(f'/products/{product.slug}')

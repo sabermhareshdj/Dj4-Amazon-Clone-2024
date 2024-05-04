@@ -8,9 +8,10 @@
 <body>
   <h2> Debug Page </h2>
   <ul>
-    {% for item in data %}
+    <li>{{data}}</li>
+    {% comment %} {% for item in data %}
     <li>{{item.name}} - {{item.brand}}
-    {% endfor %}
+    {% endfor %} {% endcomment %}
   </ul>
 
 </body>
