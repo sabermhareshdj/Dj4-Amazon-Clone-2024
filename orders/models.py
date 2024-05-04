@@ -18,18 +18,14 @@ class Cart(models.Model):
   coupon = models.ForeignKey('Coupon',related_name='cart_coupon',on_delete=models.SET_NULL ,null=True,blank=True)
   total_after_coupon = models.FloatField(null=True,blank=True)
 
-
+  def __str__(self):
+    return str(self.user)
 
   def cart_total(self):
     total = 0
     for item in self.cart_detail.all():
       total += item.total
     return round(total,2)
-
-  def __str__(self):
-    return str(self.user)
-  
-
 
 
 class CartDetail(models.Model):

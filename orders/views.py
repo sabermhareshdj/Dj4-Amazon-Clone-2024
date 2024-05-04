@@ -40,6 +40,4 @@ def checkout(request):
   cart_detail = CartDetail.objects.filter(cart=cart)
 
 
-
-
   return render(request,'orders/checkout.html',{'cart_detail':cart_detail})

@@ -5,6 +5,10 @@ from django.views.generic import ListView , DetailView
 from .models import Product , ProductImages , Brand , Review
 from django.db.models import Q , F , Value
 from django.db.models.aggregates import Max,Min,Count,Avg,Sum
+from django.views.decorators.cache import cache_page
+
+
+@cache_page(60 * 1)
 def queryset_dubug(request):
   #data = Product.objects.select_related('brand').all() # select_related with ForeignKey and one_to_one
                                                        # prefetch_related  with many_to_many
@@ -71,6 +75,8 @@ def queryset_dubug(request):
   #data = Product.objects.aaggregate(Avg('price'))
   # annotate اضافة عمود بناء على عملية حسابية 
   data = Product.objects.annotate(price_with_tax=F('price') * 1.2)
+
+  data = Product.objects.all()
 
   ###################################
 
