@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework.response import Response
-from django.shortcuts import get_list_or_404
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .serializers import CartSerializer , OrderDetailSerializer , OrderListSerializer
 from .models import Cart , CartDetail ,Order , OrderDetail ,Coupon
@@ -96,8 +96,9 @@ class ApplyCouponAPI(generics.GenericAPIView):
   def post(self,request,*args, **kwargs):
     user = User.objects.get(username=self.kwargs['username'])
     cart = Cart.objects.get(user=user,status='InProgress')
-    
-    # coupon = get_object_or_404(Coupon,code=request.data['coupon_code'])  # 404
+
+    if request.method == 'POST':
+        coupon = get_object_or_404(Coupon,code=request.data['coupon_code'])  # 404
     coupon = Coupon.objects.get(code=request.data['coupon_code']) # error 
     if coupon and coupon.quantity > 0:
       today_date = datetime.datetime.today().date()
