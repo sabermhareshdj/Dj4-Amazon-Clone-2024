@@ -290,13 +290,14 @@
                 dataType: 'json',
                 success:function(response){
                   $('#all-reviews').html(response['result'])
+                  $('#review-form').trigger('reset')
 
 
 
                 },
               
-                error: function(xhr, status, error) {
-                    console.error("Ajax error: ", error);
+                error: function() {
+                
 
                 }
               });
