@@ -78,9 +78,10 @@
                                 </div>
                                 <div class="chekout-coupon">
                                     <button class="coupon-btn">Do you have a coupon code?</button>
-                                    <form id="applyCoupon" class="coupon-form" method="post">
-                                      {% csrf_token %}
+                                    <form id="applyCoupon" class="coupon-form" method="POST">
+                                        {% csrf_token %}
                                         <input type="text" name="coupon_code" placeholder="Enter your coupon code">
+
                                         <button type="submit"><span>apply</span></button>
                                     </form>
                                 </div>
@@ -419,10 +420,9 @@
 
         <script>
           $(document).ready(function(e){
-
             $(document).on('submit','#applyCoupon',function(e){
               e.preventDefault(); 
-              
+
               $.ajax({
                 type: $(this).attr('method'),
                 url: $(this).attr('action'),
@@ -430,16 +430,20 @@
                 dataType: 'json',
                 success:function(response){
                   $('#checkoutTable').html(response['result'])
-                  $('#review-form').trigger('reset')
-                  
+                  // $('#review-form').trigger('reset')
                 },
               
                 error: function() {
-                    
+                
+
                 }
               })
 
+
             })
+
+
+
 
           })
 

@@ -8,8 +8,8 @@ from django.db.models.aggregates import Max,Min,Count,Avg,Sum
 from django.views.decorators.cache import cache_page
 from .tasks import send_emails
 
-from django.http import JsonResponse   #اجاكس
-from django.template.loader import render_to_string #اجاكس 
+from django.http import JsonResponse 
+from django.template.loader import render_to_string 
 
 
 # @cache_page(60 * 1)
@@ -137,12 +137,12 @@ def add_review(request,slug):
 
   Review.objects.create(
     product = product ,
-    rate= rate ,
+    rate = rate ,
     review = review ,
     user = request.user
     )
-  # reviews  اجاكس
+
   reviews = Review.objects.filter(product=product)
-  html = render_to_string('include/reviews_include.html',{'reviews ':reviews })
+  html = render_to_string('include/reviews_include.html',{'reviews':reviews})
   return JsonResponse({'result':html})
 #return redirect(f'/products/{product.slug}')

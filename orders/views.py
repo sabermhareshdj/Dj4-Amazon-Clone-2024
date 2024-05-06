@@ -2,15 +2,16 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render , redirect
 from django.views.generic import ListView
-from django.shortcuts import get_object_or_404
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Order , Cart , CartDetail , OrderDetail , Coupon
 from product.models import Product
+from django.shortcuts import get_object_or_404
 from settings.models import DeliveryFee
 import datetime
-from django.http import JsonResponse   #اجاكس
-from django.template.loader import render_to_string #اجاكس 
+from django.http import JsonResponse   
+from django.template.loader import render_to_string 
 
 
 class OrderList(LoginRequiredMixin, ListView):
@@ -44,9 +45,10 @@ def remove_from_cart(request,id):
 def checkout(request):
   cart = Cart.objects.get(user=request.user,status='InProgress')
   cart_detail = CartDetail.objects.filter(cart=cart)
+
   delivery_fee = DeliveryFee.objects.last().fee
   if request.method == 'POST':
-    coupon = Coupon.objects.get(code=request.POST['coupon_code']) # error 
+    coupon = get_object_or_404(Coupon,code=request.POST['coupon_code']) # error 
     if coupon and coupon.quantity > 0:
       today_date = datetime.datetime.today().date()
       if today_date >= coupon.start_date and today_date <= coupon.end_date:
@@ -70,8 +72,11 @@ def checkout(request):
           'cart_total':total ,
           'coupon': coupon_value ,
           'delivery_fee':delivery_fee
-         })
+        })
         return JsonResponse({'result':html})
+      
+
+
 
         # return render(request,'orders/checkout.html',{
         #   'cart_detail':cart_detail,
