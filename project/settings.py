@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'dj_rest_auth.registration',
     'rosetta',
+     'django_bootstrap5',
 
     'product',
     'settings',
